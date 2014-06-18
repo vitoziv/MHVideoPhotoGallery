@@ -14,6 +14,7 @@
 @class MHGalleryImageViewerViewController;
 @class MHGalleryItem;
 @class MHTransitionDismissMHGallery;
+@protocol MHGalleryImageOperationDelegate;
 
 @protocol MHGalleryDelegate<NSObject>
 @optional
@@ -41,8 +42,9 @@
 
 @interface MHGalleryController : UINavigationController <MHGalleryDataSource>
 
-@property (nonatomic,assign) id<MHGalleryDelegate>              galleryDelegate;
-@property (nonatomic,assign) id<MHGalleryDataSource>            dataSource;
+@property (nonatomic,weak) id<MHGalleryDelegate>              galleryDelegate;
+@property (nonatomic,weak) id<MHGalleryDataSource>            dataSource;
+@property (nonatomic,weak) id<MHGalleryImageOperationDelegate> imageOperationDelegate;
 /**
  *  From which index you want to present the Gallery.
  */

@@ -659,7 +659,7 @@
 				ORGANIZATIONNAME = "Mario Hahn";
 				TargetAttributes = {
 					F53F923F17EB008100A9FE6A = {
-						DevelopmentTeam = 22DEN472RY;
+						DevelopmentTeam = VWD67942DL;
 					};
 					F53F926017EB008100A9FE6A = {
 						TestTargetID = F53F923F17EB008100A9FE6A;
@@ -918,8 +918,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Mario Hahn (7P37QQ7XXD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mario Hahn (7P37QQ7XXD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/mario_hahn/Documents/Development/MHGallery,
@@ -943,8 +943,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Mario Hahn (7P37QQ7XXD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mario Hahn (7P37QQ7XXD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/mario_hahn/Documents/Development/MHGallery,

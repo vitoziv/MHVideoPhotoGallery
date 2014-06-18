@@ -14,6 +14,12 @@
 @class MHGalleryController;
 @class MHImageViewController;
 
+@protocol MHGalleryImageOperationDelegate <NSObject>
+
+- (void)galleryImageOperationDidDeleteAtIndex:(NSInteger)index;
+
+@end
+
 @interface MHPinchGestureRecognizer : UIPinchGestureRecognizer
 @property (nonatomic)NSInteger tag;
 @end
@@ -32,6 +38,7 @@
 @property (nonatomic, strong)          MHTransitionPresentMHGallery *interactivePresentationTranstion;
 @property (nonatomic, strong)          MHTransitionCustomization *transitionCustomization;
 @property (nonatomic,strong)           MHUICustomization *UICustomization;
+@property (nonatomic, weak) id<MHGalleryImageOperationDelegate> delegate;
 
 @property (nonatomic,getter = isUserScrolling)                   BOOL userScrolls;
 @property (nonatomic,getter = isHiddingToolBarAndNavigationBar)  BOOL hiddingToolBarAndNavigationBar;
@@ -47,7 +54,7 @@
 
 @property (nonatomic,strong)        MHTransitionDismissMHGallery *interactiveTransition;
 @property (nonatomic,strong)        MHTransitionShowOverView *interactiveOverView;
-@property (nonatomic,strong)        MHGalleryImageViewerViewController *viewController;
+@property (nonatomic,weak)        MHGalleryImageViewerViewController *viewController;
 @property (nonatomic,strong)        MHGalleryItem *item;
 @property (nonatomic,strong)        UIScrollView *scrollView;
 @property (nonatomic,strong)        UIButton *playButton;

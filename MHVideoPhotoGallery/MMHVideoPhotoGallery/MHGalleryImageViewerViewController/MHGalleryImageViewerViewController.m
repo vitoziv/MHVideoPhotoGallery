@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIBarButtonItem          *leftBarButton;
 @property (nonatomic, strong) UIBarButtonItem          *rightBarButton;
 @property (nonatomic, strong) UIBarButtonItem          *playStopBarButton;
+@property (nonatomic, strong) UIBarButtonItem          *deleteBarButton;
 @end
 
 @implementation MHGalleryImageViewerViewController
@@ -163,6 +164,9 @@
     self.shareBarButton = [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                       target:self
                                                                       action:@selector(sharePressed)];
+    self.deleteBarButton = [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
+                                                                       target:self
+                                                                       action:@selector(deletePressed:)];
     
     if (self.UICustomization.hideShare) {
         self.shareBarButton = [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
@@ -386,7 +390,7 @@
         [self changeToPlayButton];
         self.toolbar.items = @[self.shareBarButton,flex,self.leftBarButton,flex,self.playStopBarButton,flex,self.rightBarButton,flex,fixed];
     }else{
-        self.toolbar.items =@[self.shareBarButton,flex,self.leftBarButton,flex,self.rightBarButton,flex,fixed];
+        self.toolbar.items =@[self.shareBarButton,flex,self.leftBarButton,flex,self.rightBarButton,flex,self.deleteBarButton];
     }
 }
 
@@ -462,6 +466,53 @@
         [weakSelf updateToolBarForItem:[weakSelf itemForIndex:weakSelf.pageIndex]];
         [weakSelf showCurrentIndex:weakSelf.pageIndex];
     }];
+}
+
+- (void)deletePressed:(id)sender
+{
+    self.deleteBarButton.enabled = NO;
+    MHImageViewController *theCurrentViewController = self.pageViewController.viewControllers.firstObject;
+    
+    // Remove item
+    NSMutableArray *newItems = [self.galleryViewController.galleryItems mutableCopy];
+    [newItems removeObjectAtIndex:theCurrentViewController.pageIndex];
+    self.galleryViewController.galleryItems = newItems;
+    
+    // Get new image view controller
+    NSUInteger indexPage = MIN(theCurrentViewController.pageIndex, newItems.count - 1) ;
+    MHImageViewController *imageViewController =[MHImageViewController imageViewControllerForMHMediaItem:[self itemForIndex:indexPage] viewController:self];
+    imageViewController.pageIndex = indexPage;
+    
+    if (indexPage+1 == self.numberOfGalleryItems-1) {
+        self.rightBarButton.enabled = NO;
+    }
+    
+    if (indexPage-1 == 0) {
+        self.leftBarButton.enabled = NO;
+    }
+    
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         theCurrentViewController.imageView.alpha = 0.0;
+                     } completion:^(BOOL finished) {
+                         UIPageViewControllerNavigationDirection direction = theCurrentViewController.pageIndex == newItems.count ? UIPageViewControllerNavigationDirectionReverse : UIPageViewControllerNavigationDirectionForward;
+                         
+                         __weak typeof(self) weakSelf = self;
+                         [self.pageViewController setViewControllers:@[imageViewController] direction:direction animated:NO completion:^(BOOL finished) {
+                             weakSelf.pageIndex = imageViewController.pageIndex;
+                             [weakSelf updateToolBarForItem:[weakSelf itemForIndex:weakSelf.pageIndex]];
+                             [weakSelf showCurrentIndex:weakSelf.pageIndex];
+                             
+                             weakSelf.deleteBarButton.enabled = YES;
+                             if ([weakSelf.delegate respondsToSelector:@selector(galleryImageOperationDidDeleteAtIndex:)]) {
+                                 [weakSelf.delegate galleryImageOperationDidDeleteAtIndex:theCurrentViewController.pageIndex];
+                             }
+                         }];
+                     }];
+    
+    [self updateTitleForIndex:indexPage];
 }
 
 -(void)showCurrentIndex:(NSInteger)currentIndex{
