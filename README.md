@@ -3,6 +3,11 @@
 </p>
 ==================
 
+##2014-06-18
+
+- Fix some memory leak
+- Add delete photo delegate for MGPresenterImageView, MHGalleryImageViewerViewController and MHGalleryController
+
 #### Podfile
 
 ```ruby
