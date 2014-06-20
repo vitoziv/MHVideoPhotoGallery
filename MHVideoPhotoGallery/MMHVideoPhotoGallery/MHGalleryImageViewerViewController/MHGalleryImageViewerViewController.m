@@ -92,19 +92,18 @@
     self.UICustomization          = self.galleryViewController.UICustomization;
     self.transitionCustomization  = self.galleryViewController.transitionCustomization;
     
-    self.navigationItem.hidesBackButton = YES;
-//    if (!self.UICustomization.showOverView) {
-//        self.navigationItem.hidesBackButton = YES;
-//    }else{
-//        if (self.galleryViewController.UICustomization.backButtonState == MHBackButtonStateWithoutBackArrow) {
-//            UIBarButtonItem *backBarButton = [UIBarButtonItem.alloc initWithImage:MHTemplateImage(@"ic_square")
-//                                                                            style:UIBarButtonItemStyleBordered
-//                                                                           target:self
-//                                                                           action:@selector(backButtonAction)];
-//            self.navigationItem.hidesBackButton = YES;
-//            self.navigationItem.leftBarButtonItem = backBarButton;
-//        }
-//    }
+    if (!self.UICustomization.showOverView) {
+        self.navigationItem.hidesBackButton = YES;
+    }else{
+        if (self.galleryViewController.UICustomization.backButtonState == MHBackButtonStateWithoutBackArrow) {
+            UIBarButtonItem *backBarButton = [UIBarButtonItem.alloc initWithImage:MHTemplateImage(@"ic_square")
+                                                                            style:UIBarButtonItemStyleBordered
+                                                                           target:self
+                                                                           action:@selector(backButtonAction)];
+            self.navigationItem.hidesBackButton = YES;
+            self.navigationItem.leftBarButtonItem = backBarButton;
+        }
+    }
     
     UIBarButtonItem *doneBarButton =  [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                   target:self
