@@ -40,24 +40,25 @@
         self.backgroundColorsForViewModes = [NSMutableDictionary  dictionaryWithDictionary:@{@"0":UIColor.blackColor,
                                                                                              @"1":UIColor.whiteColor,
                                                                                              @"2":UIColor.whiteColor}];
-        
         CGSize screenSize = UIScreen.mainScreen.bounds.size;
+        
+        CGFloat screenLandscapeWidth = MAX(screenSize.height, screenSize.width) - 12;
         UICollectionViewFlowLayout *flowLayoutLanscape = UICollectionViewFlowLayout.new;
         flowLayoutLanscape.scrollDirection = UICollectionViewScrollDirectionVertical;
-        flowLayoutLanscape.sectionInset = UIEdgeInsetsMake(4, 0, 0, 0);
+        flowLayoutLanscape.sectionInset = UIEdgeInsetsMake(4, 4, 4, 4);
         flowLayoutLanscape.minimumInteritemSpacing = 4;
-        flowLayoutLanscape.minimumLineSpacing = 10;
-        flowLayoutLanscape.itemSize = CGSizeMake(screenSize.width/3.1, screenSize.width/3.1);
+        flowLayoutLanscape.minimumLineSpacing = 4;
+        flowLayoutLanscape.itemSize = CGSizeMake(screenLandscapeWidth/2.0f, screenLandscapeWidth/2.0f);
         self.overViewCollectionViewLayoutLandscape = flowLayoutLanscape;
         
+        CGFloat screenPortraitWidth = MIN(screenSize.height, screenSize.width) - 12;
         UICollectionViewFlowLayout *flowLayoutPort = UICollectionViewFlowLayout.new;
         flowLayoutPort.scrollDirection = UICollectionViewScrollDirectionVertical;
-        flowLayoutPort.sectionInset = UIEdgeInsetsMake(4, 0, 0, 0);
+        flowLayoutPort.sectionInset = UIEdgeInsetsMake(4, 4, 4, 4);
         flowLayoutPort.minimumInteritemSpacing = 4;
         flowLayoutPort.minimumLineSpacing = 4;
-        flowLayoutPort.itemSize = CGSizeMake(screenSize.width/3.1, screenSize.width/3.1);
+        flowLayoutPort.itemSize = CGSizeMake(screenPortraitWidth/2.0f, screenPortraitWidth/2.0f);
         self.overViewCollectionViewLayoutPortrait = flowLayoutPort;
-        
     }
     return self;
 }
