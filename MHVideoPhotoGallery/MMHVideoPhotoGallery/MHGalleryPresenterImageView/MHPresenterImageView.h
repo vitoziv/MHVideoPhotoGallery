@@ -14,6 +14,8 @@
 @class MHTransitionPresentMHGallery;
 @class MHTransitionDismissMHGallery;
 @protocol MHGalleryImageOperationDelegate;
+@protocol MHGalleryDelegate;
+@protocol MHGalleryDataSource;
 
 @interface MHPresenterImageView : UIImageView <UIGestureRecognizerDelegate>
 
@@ -36,6 +38,8 @@
 @property (nonatomic,strong) MHTransitionPresentMHGallery *presenter;
 
 @property (nonatomic, weak) id<MHGalleryImageOperationDelegate> imageOperationDelegate;
+@property (nonatomic, weak) id<MHGalleryDelegate> galleryDelegate;
+@property (nonatomic, weak) id<MHGalleryDataSource> galleryDataSource;
 
 -(void)setInseractiveGalleryPresentionWithItems:(NSArray*)galleryItems
                               currentImageIndex:(NSInteger)currentImageIndex

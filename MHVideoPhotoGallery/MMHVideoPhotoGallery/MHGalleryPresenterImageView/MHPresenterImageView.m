@@ -91,6 +91,8 @@
     gallery.presentingFromImageView = self;
     gallery.presentationIndex =  self.currentImageIndex;
     gallery.imageOperationDelegate = self.imageOperationDelegate;
+    gallery.dataSource = self.galleryDataSource;
+    gallery.galleryDelegate = self.galleryDelegate;
    
     if (self.finishedCallback) {
         gallery.finishedCallback = self.finishedCallback;

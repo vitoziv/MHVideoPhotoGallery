@@ -8,7 +8,8 @@
 
 #import "ExampleViewControllerImageView.h"
 
-@interface ExampleViewControllerImageView () <MHGalleryImageOperationDelegate>
+@interface ExampleViewControllerImageView () <MHGalleryImageOperationDelegate, MHGalleryDataSource, MHGalleryDelegate>
+@property (nonatomic, strong) NSArray *galleryItems;
 @end
 
 @implementation ExampleViewControllerImageView
@@ -62,12 +63,19 @@
     MHGalleryItem *landschaft10 = [[MHGalleryItem alloc]initWithURL:@"http://4.bp.blogspot.com/-8O0ZkAgb6Bo/Ulf_80tUN6I/AAAAAAAAH34/I1L2lKjzE9M/s1600/Beautiful-Scenery-Wallpapers.jpg"
                                                         galleryType:MHGalleryTypeImage];
     
-    NSArray *galleryItems = @[landschaft,landschaft1,landschaft2,landschaft3,landschaft4,landschaft5,landschaft6,landschaft7,landschaft8,landschaft9];
+    self.galleryItems = @[landschaft,landschaft1,landschaft2,landschaft3,landschaft4,landschaft5,landschaft6,landschaft7,landschaft8,landschaft9];
     
-//    __weak ExampleViewControllerImageView *blockSelf = self;
+    self.iv.currentImageIndex = 0;
+    self.iv.viewController = self;
+    [self.iv setImageWithURL:[NSURL URLWithString:landschaft.URLString]];
+    [self.iv setUserInteractionEnabled:YES];
+    self.iv.shoudlUsePanGestureReconizer = YES;
+    self.iv.galleryDelegate = self;
+    self.iv.galleryDataSource = self;
+    self.iv.imageOperationDelegate = self;
+    
     __weak typeof(self)blockSelf = self;
-
-    [self.iv setInseractiveGalleryPresentionWithItems:galleryItems currentImageIndex:0 currentViewController:self finishCallback:^(NSUInteger currentIndex,UIImage *image,MHTransitionDismissMHGallery *interactiveTransition,MHGalleryViewMode viewMode) {
+    self.iv.finishedCallback = ^(NSUInteger currentIndex,UIImage *image,MHTransitionDismissMHGallery *interactiveTransition,MHGalleryViewMode viewMode) {
         if (viewMode == MHGalleryViewModeOverView) {
             [blockSelf dismissViewControllerAnimated:YES completion:nil];
         }else{
@@ -75,15 +83,7 @@
             blockSelf.iv.currentImageIndex = currentIndex;
             [blockSelf.presentedViewController dismissViewControllerAnimated:YES dismissImageView:blockSelf.iv completion:nil];
         }
-    }];
-    
-    
-    [self.iv setImageWithURL:[NSURL URLWithString:landschaft.URLString]];
-    [self.iv setUserInteractionEnabled:YES];
-    
-    self.iv.shoudlUsePanGestureReconizer = YES;
-//    self.iv.imageOperationDelegate = self;
-    
+    };
 }
 
 
@@ -92,5 +92,24 @@
     NSLog(@" ExampleViewControllerImageView delete at: %ld", index);
 }
 
+
+
+/**
+ *  @param index which is currently needed
+ *
+ *  @return MHGalleryItem
+ */
+- (MHGalleryItem*)itemForIndex:(NSInteger)index {
+    return self.galleryItems[index];
+}
+/**
+ *  @param galleryController
+ *
+ *  @return the number of Items you want to Display
+ */
+- (NSInteger)numberOfItemsInGallery:(MHGalleryController*)galleryController
+{
+    return self.galleryItems.count;
+}
 
 @end
