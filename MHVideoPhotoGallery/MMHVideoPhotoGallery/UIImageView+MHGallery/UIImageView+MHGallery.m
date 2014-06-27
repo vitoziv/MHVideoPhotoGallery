@@ -27,7 +27,8 @@
                                                                     weakSelf.image = image;
                                                                     [weakSelf setNeedsLayout];
                                                                 }
-                                                                if (succeedBlock) {                                                                     succeedBlock(image,videoDuration,error);
+                                                                if (succeedBlock) {
+                                                                    succeedBlock(image,videoDuration,error);
                                                                 }
                                                             });
                                                         }];

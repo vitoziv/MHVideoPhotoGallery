@@ -86,6 +86,10 @@
 
 -(void)didTapOnImage{
     
+    if ([self.delegate respondsToSelector:@selector(presenterImageViewDidTap:)]) {
+        [self.delegate presenterImageViewDidTap:self];
+    }
+    
     MHGalleryController *gallery = [MHGalleryController.alloc initWithPresentationStyle:MHGalleryViewModeImageViewerNavigationBarShown];
     gallery.galleryItems = self.galleryItems;
     gallery.presentingFromImageView = self;
