@@ -40,6 +40,8 @@
  */
 @property (nonatomic)        NSInteger currentImageIndex;
 
+@property (nonatomic, strong) MHUICustomization *customization;
+
 @property (nonatomic, copy) void (^finishedCallback)(NSUInteger currentIndex,UIImage *image,MHTransitionDismissMHGallery *interactiveTransition,MHGalleryViewMode viewMode);
 
 @property (nonatomic,strong) MHTransitionPresentMHGallery *presenter;

@@ -97,6 +97,7 @@
     gallery.imageOperationDelegate = self.imageOperationDelegate;
     gallery.dataSource = self.galleryDataSource;
     gallery.galleryDelegate = self.galleryDelegate;
+    gallery.UICustomization = self.customization;
    
     if (self.finishedCallback) {
         gallery.finishedCallback = self.finishedCallback;
@@ -117,6 +118,7 @@
     gallery.presentationIndex =  self.currentImageIndex;
     gallery.interactivePresentationTransition = self.presenter;
     gallery.imageOperationDelegate = self.imageOperationDelegate;
+    gallery.UICustomization = self.customization;
     if (self.finishedCallback) {
        gallery.finishedCallback = self.finishedCallback;
     }

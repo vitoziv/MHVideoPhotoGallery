@@ -73,6 +73,8 @@
     self.iv.galleryDelegate = self;
     self.iv.galleryDataSource = self;
     self.iv.imageOperationDelegate = self;
+    MHUICustomization *customzation = [[MHUICustomization alloc] init];
+    self.iv.customization = customzation;
     
     __weak typeof(self)blockSelf = self;
     self.iv.finishedCallback = ^(NSUInteger currentIndex,UIImage *image,MHTransitionDismissMHGallery *interactiveTransition,MHGalleryViewMode viewMode) {
